@@ -59,9 +59,9 @@ var evalRPN = function(tokens) {
     if (isOperator(token)) {
       let opB = stack.pop()
       let opA = stack.pop()
-      stack.push(eval(opA, opB, token))
 
-      console.log(opA + token + opB + '=' + eval(opA, opB, token))
+      stack.push(eval(opA, opB, token))
+      // console.log(opA + token + opB + '=' + eval(opA, opB, token))
 
     } else {
       stack.push(parseInt(token))
