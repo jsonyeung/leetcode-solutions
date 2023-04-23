@@ -68,5 +68,5 @@ var evalRPN = function(tokens) {
     }
   }
 
-  return Math.floor(stack.pop())
+  return stack.pop()
 };
