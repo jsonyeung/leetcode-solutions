@@ -1,33 +1,46 @@
-class TreeNode {
+class TrieNode {
     constructor(char) {
         this.val = char
-        this.children = []
+        this.children = {}
         this.isMatch = false
+    }
+
+    getNode(char) {
+        return this.children?.[char]
     }
 }
 
 var Trie = function() {
-    this.root = new TreeNode(null)
+    this.root = new TrieNode(null)
 };
+
+Trie.prototype._searchPrefix = function(prefix) {
+    let node = this.root
+
+    for (let char of prefix) {
+        node = node.getNode(char)
+        if (!node) return null
+    }
+
+    return node
+}
 
 /** 
  * @param {string} word
  * @return {void}
  */
 Trie.prototype.insert = function(word) {
-    let ptr = this.root
+    let node = this.root
 
     for (let char of word) {
-        let next = ptr.children[char]
-
-        if (!next) {
-            ptr.children[char] = new TreeNode(char)
+        if (!node.children[char]) {
+            node.children[char] = new TrieNode(char)
         }
-        
-        ptr = ptr.children[char]
+
+        node = node.children[char]
     }
 
-    ptr.isMatch = true
+    if (node) node.isMatch = true
 };
 
 /** 
@@ -35,14 +48,9 @@ Trie.prototype.insert = function(word) {
  * @return {boolean}
  */
 Trie.prototype.search = function(word) {
-    let ptr = this.root
-
-    for (let char of word) {
-        ptr = ptr?.children?.[char]
-        if (ptr == null) return false
-    }
-
-    return ptr.isMatch
+    let node = this._searchPrefix(word)
+    console.log(node)
+    return !!(node && node.isMatch)
 };
 
 /** 
@@ -50,15 +58,7 @@ Trie.prototype.search = function(word) {
  * @return {boolean}
  */
 Trie.prototype.startsWith = function(prefix) {
-    let ptr = this.root
-
-    // go to node
-    for (let char of prefix) {
-        ptr = ptr?.children?.[char]
-        if (ptr == null) false
-    }
-
-    return ptr?.val != null
+    return !!this._searchPrefix(prefix)
 };
 
 /** 
