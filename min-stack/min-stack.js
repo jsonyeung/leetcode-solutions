@@ -23,16 +23,28 @@ MinStack.prototype.size = function() {
     return this.stack.length
 }
 
+MinStack.prototype.getLast = function() {
+    if (this.size() > 0) {
+        return this.stack[this.size() - 1]
+    }
+}
+
 /** 
  * @param {number} val
  * @return {void}
  */
 MinStack.prototype.push = function(val) {
-    if (this.size() <= 0) {
-        this.stack[this.size()] = [val, val] // [val, min]
+    if (this.size() < 1) {
+        this.stack[this.size()] = {
+            val: val,
+            min: val
+        }
 
     } else {
-        this.stack[this.size()] = [val, Math.min(val, this.stack[this.size() - 1][1])]
+        this.stack[this.size()] = {
+            val: val,
+            min: Math.min(val, this.getLast().min)
+        }
     }
 };
 
@@ -49,14 +61,14 @@ MinStack.prototype.pop = function() {
  * @return {number}
  */
 MinStack.prototype.top = function() {
-    return this.stack[this.size() - 1]?.[0]
+    return this.getLast()?.val
 };
 
 /**
  * @return {number}
  */
 MinStack.prototype.getMin = function() {
-    return this.stack[this.size() - 1]?.[1]
+    return this.getLast()?.min
 };
 
 /** 
