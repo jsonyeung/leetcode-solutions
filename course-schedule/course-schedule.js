@@ -69,7 +69,6 @@ var canFinish = function(numCourses, prerequisites) {
 
     // checks to see if has cycle
     function cycleExists(nodeKey) {
-        // console.log(nodeKey, recState[nodeKey])
         // we are revisting a node already part of recursion stack
         // therefore, it must be a cycle
         if (recState[nodeKey]) return true
