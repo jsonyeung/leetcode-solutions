@@ -69,18 +69,21 @@ var canFinish = function(numCourses, prerequisites) {
 
     // checks to see if has cycle
     function cycleExists(nodeKey) {
-        // we are revisting a node already part of recursion stack
-        // therefore, it must be a cycle
-        if (recState[nodeKey]) return true
+        let neighbours = list[nodeKey] || []
 
-        // if we visited, we already know this node has no cycle
-        if (visited[nodeKey]) return false
+        if (recState[nodeKey]) {
+            return true
+        }
+
+        if (visited[nodeKey]) {
+            return false
+        }
 
         visited[nodeKey] = true
         recState[nodeKey] = true
 
-        for (let key of (list[nodeKey] || [])) {
-            if (cycleExists(key)) {
+        for (let neighbour of neighbours) {
+            if (cycleExists(neighbour)) {
                 return true
             }
         }
@@ -88,8 +91,9 @@ var canFinish = function(numCourses, prerequisites) {
         recState[nodeKey] = false
         return false
     }
-        
+
     for (let nodeKey in list) {
+        console.log(cycleExists(nodeKey))
         if (cycleExists(nodeKey)) {
             return false
         }
