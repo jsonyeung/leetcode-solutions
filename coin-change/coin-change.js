@@ -17,12 +17,8 @@ Can't go greedy bc (5 + 1 + 1) = 3
 
  */
 var coinChange = function(coins, amount) {
-    let dp = []
-
+    let dp = Array(amount + 1).fill(Infinity)
     dp[0] = 0
-    for (let i = 0; i < amount; i++) 
-        dp.push(Infinity)
-    
 
     for (let a = 1; a <= amount; a++) {
         for (let c of coins) {
