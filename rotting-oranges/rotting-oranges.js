@@ -27,19 +27,8 @@ if fresh > 0 return -1
 else return count
 
 */
-
-function getNeighbours(r, c) {
-    for (let dr of [-1, 0, 1]) {
-        for (let dc of [-1, 0, 1]) {
-
-
-        }
-    }
-}
-
 var orangesRotting = function(grid) {
     let rotten = []
-
     let count = -1
     let fresh = 0
 
