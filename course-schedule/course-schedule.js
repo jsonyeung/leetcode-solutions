@@ -93,7 +93,6 @@ var canFinish = function(numCourses, prerequisites) {
     }
 
     for (let nodeKey in list) {
-        console.log(cycleExists(nodeKey))
         if (cycleExists(nodeKey)) {
             return false
         }
