@@ -43,8 +43,6 @@ var numIslands = function(grid) {
     function dfs(r, c) {
         let validNeighbours = getValidNeighbours(r, c)
 
-        console.log(validNeighbours)
-
         if (validNeighbours <= 0) return
 
         for (let [nr, nc] of validNeighbours) {
