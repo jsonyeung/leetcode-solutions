@@ -3,46 +3,24 @@
  * @param {number} target
  * @return {number[][]}
  */
-/*
-
-[2 3 6] 6
-
-= [[2 2 2] [3 3] [6]]
-
-[2 2 2] = 2 + dp[4]
-[3 3] = 3 + dp[3]
-[6] = 6 + dp[0]
-
-
-[2 3 6 7] 6
-
-dp[0] = [[]]
-dp[1] = []
-dp[2] = [2 + dp[0] = [2]]
-dp[3] = [2 + dp[1] = [], 3 + dp[0] = [3], ]
-
-
-
-*/
 var combinationSum = function(candidates, target) {
     let dp = []
 
-    // initialize DP
+    // initialize dp
     dp[0] = [[]]
-    for (let i = 0; i < target; i++) dp.push([])
+    for (let i = 1; i <= target; i++) dp[i] = []
 
-    for (let c of candidates) {
+    // outer loop should be candidates so that the combination only gets added once (e.g. 2 + 3 = 5 and 3 + 2 = 5)
+    for (let c of candidates) { 
         for (let t = 1; t <= target; t++) {
             let diff = t - c
             if (diff < 0) continue
 
-            // when c === t, dp[diff] = dp[0] = [[]]
-
             dp[diff].forEach((combo) => {
-                dp[t].push([...combo, c])
+                dp[t].push([c, ...combo])
             })
         }
     }
-    
+
     return dp[target]
 };
