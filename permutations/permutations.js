@@ -45,18 +45,20 @@ slots = [_ _ _]
 set = set of all values
 
 dfs: recursively loop through each value
-  put self in slot
-  take self out from set
-
   if slots are full
     add slots to results
   else
     for remaining choices in set
-      dfs(slots, set)
-    
-  take self out from slot
-  put self back into set
+      if choice is already being used continue
 
+      put choice in slot
+      put choice into used set
+
+      dfs(slots, set)
+
+      take choice out from slot
+      take choice out of used set
+    
 return results
 
 */
