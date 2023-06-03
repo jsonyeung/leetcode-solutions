@@ -3,7 +3,6 @@
  * @return {Matrix}
  */
 /*
-
 flatten the array objs
 
 e.g.
@@ -61,7 +60,11 @@ var jsonToMatrix = function(arr) {
 
   keys = [...keys].sort()
 
-  const results = Array.from(new Array(arr.length + 1), () => (new Array(keys.length)).fill(""))
+  const results = Array.from(
+    new Array(arr.length + 1), 
+    () => (new Array(keys.length)).fill("")
+  )
+
   results[0] = keys
 
   const orderedMap = keys.reduce((acc, val, i) => {
