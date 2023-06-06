@@ -4,10 +4,8 @@ class EventEmitter {
   }
 
   subscribe(event, cb) {
-    if (this.subscribers[event] == null) {
-        this.subscribers[event] = []
-    }
-
+    this.subscribers[event] = this.subscribers[event] ?? []
+    
     let index = this.subscribers.length
     this.subscribers[event].push(cb)
 
