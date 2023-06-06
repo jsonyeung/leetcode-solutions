@@ -3,18 +3,19 @@
  * @return {Generator}
  */
 var inorderTraversal = function*(arr) {
-    let results = []
+    let stack = [arr]
 
-    function dfs(arr) {
-        for (let val of arr) {
-            if (Array.isArray(val)) dfs(val)
-            else results.push(val)
+    while (stack.length > 0) {
+        const cur = stack.pop()
+
+        if (Array.isArray(cur)) {
+            for (let i = cur.length - 1; i >= 0; i--) {
+                stack.push(cur[i])
+            }
+
+        } else {
+            yield cur
         }
-    }
-
-    dfs(arr)
-    for (let val of results) {
-        yield val
     }
 };
 
