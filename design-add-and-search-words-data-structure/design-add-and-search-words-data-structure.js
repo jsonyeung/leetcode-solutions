@@ -23,39 +23,27 @@ WordDictionary.prototype.addWord = function(word) {
  * @return {boolean}
  */
 WordDictionary.prototype.search = function(word) {
-    function traverse(node, i = 0) {
-        // if character is '.'
-        if (word[i] === '.') {
-            for (const prop in node) {
-                if (prop === 'isEnd') continue
+    function traverse(node, chars) {
+        if (chars.length <= 0) {
+            if (node.isEnd) return true
+        }
 
-                if (node[prop].isEnd && i === (word.length - 1)) {
-                    return true
-                }
+        let nextChar = chars[0]
 
-                if (traverse(node[prop], i + 1)) {
+        if (nextChar === '.') {
+            for (const char in node) {
+                if (char === 'isEnd') continue
+                if (traverse(node[char], chars.slice(1))) {
                     return true
                 }
             }
-
             return false
         }
-
-        // if character is any other character
-        let next = word[i]
-
-        if (node[next] == null || i >= word.length) {
-            return false
-        }
-
-        if (node[next].isEnd && i === (word.length - 1)) {
-            return true
-        }
-
-        return traverse(node[next], i + 1)
+        
+        return (node[nextChar]) ? traverse(node[nextChar], chars.slice(1)) : false
     }
 
-    return traverse(this.trie)
+    return traverse(this.trie, word.split(''))
 };
 
 /** 
