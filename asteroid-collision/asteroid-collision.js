@@ -26,9 +26,11 @@ var asteroidCollision = function(asteroids) {
                     break
                 }
 
-                if ((last + asteroid) > 0) break
-                remaining.pop()
-                if ((last + asteroid) === 0) break
+                if ((last + asteroid) <= 0) {
+                    remaining.pop()
+                }
+
+                if ((last + asteroid) >= 0) break
             }
         }
     }
