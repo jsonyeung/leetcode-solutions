@@ -22,8 +22,7 @@ var groupAnagrams = function(strs) {
     let map = new Map()
 
     for (let str of strs) {
-        let key = str.split('')
-            .sort((a, b) => a.localeCompare(b)).join('')
+        let key = str.split('').sort().join('')
 
         if (!map.has(key)) map.set(key, [])
         map.set(key, [...map.get(key), str])
