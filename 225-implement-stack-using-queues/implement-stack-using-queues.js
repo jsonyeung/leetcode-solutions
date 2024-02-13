@@ -15,20 +15,23 @@ MyStack.prototype.push = function(x) {
  * @return {number}
  */
 MyStack.prototype.pop = function() {
-    if (this.queue.length <= 0) return
+    if (this.empty()) return
 
-    const tempQueue = []
+    let tempQueue = []
 
     while (this.queue.length < 1) {
-        this.tempQueue.unshift(this.queue.shift())
-        this.length--
+        tempQueue.unshift(
+            this.queue.shift()
+        )
     }
 
     const result = this.queue.shift()
 
     while (tempQueue.length > 0) {
-        this.queue.unshift(this.tempQueue.shift())
-    }    
+        this.queue.unshift(
+            tempQueue.shift()
+        )
+    }
 
     return result
 };
