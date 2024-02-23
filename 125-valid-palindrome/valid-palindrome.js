@@ -2,33 +2,32 @@
  * @param {string} s
  * @return {boolean}
  */
-const isAlphaNumeric = (char) => {
-    return ((char >= 'a') && (char <= 'z')) ||  ((char >= '0') && (char <= '9'))
-} 
-
 var isPalindrome = function(s) {
-    let left = 0, right = (s.length - 1)
+    function isAlphaNumeric(digit) {
+        return ((digit >= 'a') && (digit <= 'z')) || ((digit >= '0') && (digit <= '9'))
+    }
 
-    while (left < right) {
-        let leftChar = s[left].toLowerCase()
-        let rightChar = s[right].toLowerCase()
+    let i = 0, j = (s.length - 1)
 
-        if (!isAlphaNumeric(leftChar)) {
-            left++
+    while (i < j) {
+        let charI = s[i].toLowerCase()
+        let charJ = s[j].toLowerCase()
+        
+        if (!isAlphaNumeric(charI)) {
+            i++
             continue
         }
 
-        if (!isAlphaNumeric(rightChar)) {
-            right--
+        if (!isAlphaNumeric(charJ)) {
+            j--
             continue
         }
 
-        if (leftChar !== rightChar) {
+        if (charI !== charJ) {
             return false
         }
 
-        left++
-        right--
+        i++; j--
     }
 
     return true
