@@ -35,7 +35,7 @@
 1, 2, 3, null, null, 5, null, null, 4, null, null
 
  */
-let DELIM = ' '
+const DELIM = ' '
 
 var serialize = function(root) {
     let encoded = ''
@@ -52,7 +52,6 @@ var serialize = function(root) {
     }
 
     traverse(root)
-    console.log(encoded.trim())
     return encoded.trim()
 };
 
