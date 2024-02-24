@@ -39,8 +39,6 @@ var orangesRotting = function(grid) {
                 let cur_c = entry[1] + dir[1]
                 let curEntry = grid?.[cur_r]?.[cur_c]
 
-                console.log(curEntry, cur_r, cur_c)
-
                 if (!seen.has(getKey(cur_r, cur_c)) && curEntry === 1) {
                     fringe.push([cur_r, cur_c])
                     seen.add(getKey(cur_r, cur_c))
