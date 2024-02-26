@@ -3,42 +3,38 @@
  * @param {string} word2
  * @return {number}
  */
- /*
+/*
 
- given the largest string out of the two
+ decision tree
 
- for the first character, we can:
-    2. delete a character
-    3. replace a character
+ left = 0, right = 0
 
-    
-                           horse
-                            rose
-                        /    |      \       
-                        V   
-                     horse
-                      rose
-                         ^
+ // inserts we would have to do to get to match
+ if (left >= word1 len) return word2.len - right
+ if (right >= word2 len) return word1.len - left
+
+ for each choice
+    1. delete from word1 (left+1)
+    2. delete from word2 (right+1)
+    3. sub characters between word1 and word2 (left+1, right+1)
 
 
- */
+*/
+
 var minDistance = function(word1, word2) {
-    const memo = {}
+    let memo = {}
+
     const key = (i, j) => `${i}_${j}`
 
     function helper(i = 0, j = 0) {
-        // console.log(i, j, word1[i], word2[j])
-
         if (i >= word1.length) {
-            // remaining is insertions
-            return (word2.length - j)
+            return word2.length - j
         }
 
         if (j >= word2.length) {
-            return (word1.length - i)
+            return word1.length - i
         }
 
-        // letters match, do nothing
         if (word1[i] === word2[j]) {
             return helper(i+1, j+1)
         }
@@ -48,11 +44,10 @@ var minDistance = function(word1, word2) {
         }
 
         memo[key(i, j)] = 1 + Math.min(
-            helper(i+1, j), // delete letter from word1
-            helper(i, j+1), // delete letter from word2
-            helper(i+1, j+1) // sub letter from word1 and word2
+            helper(i+1, j),
+            helper(i, j+1),
+            helper(i+1, j+1)
         )
-
         return memo[key(i, j)]
     }
 
