@@ -4,39 +4,35 @@
  * @return {number[][]}
  */
 var insert = function(intervals, newInterval) {
-    let result = []
-    let [startA, endA] = newInterval
+    let currentInterval = newInterval
     let hasInserted = false
 
-    for (let interval of intervals) {
-        const [startB, endB] = interval
+    let results = []
+
+    for (let i = 0; i < intervals.length; i++) {
+        let [a, b] = intervals[i]
+        let [c, d] = currentInterval
 
         if (hasInserted) {
-            result.push(interval)
+            results.push(intervals[i])
             continue
         }
 
-        // don't overlap and interval_A is in front
-        if (startB > endA) {
-            result.push([startA, endA], interval)
+        if (b < c) {
+            results.push(intervals[i])
+
+        } else if (a > d) {
+            results.push(currentInterval, intervals[i])
             hasInserted = true
 
-        // don't overlap and interval_B is in front,
-        // let's check the next interval
-        } else if (endB < startA) {
-            result.push(interval)
-
-        // merge
         } else {
-            startA = Math.min(startA, startB)
-            endA = Math.max(endA, endB)
+            currentInterval = [Math.min(a, c), Math.max(b, d)]
         }
     }
 
-    // if no intervals were mergable and we're at end of array
     if (!hasInserted) {
-        result.push([startA, endA])
+        results.push(currentInterval)
     }
-    
-    return result
+
+    return results
 };
