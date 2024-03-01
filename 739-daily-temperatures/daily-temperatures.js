@@ -2,37 +2,23 @@
  * @param {number[]} temperatures
  * @return {number[]}
  */
-
-/*
-
-[30] => [0]
-[35, 36, 37] => [1, 1, 0]
-
-
-Find the peaks of the mountains
-    for each peak, move backwards
-
-*/
 var dailyTemperatures = function(temperatures) {
-    let results = Array.from({ length: temperatures.length }, () => 0)
-    let stack = [] // [temp, i]
-
-    for (let i = 0; i < temperatures.length; i++) {
-        let temp = temperatures[i]
-
-        while (stack.length > 0) {
-            let [lastTemp, lastI] = stack[stack.length - 1]
-
-            if (temp > lastTemp) {
-                results[lastI] = (i - lastI)
-                stack.pop()
-            } else {
-                break
-            }
-        }
-
-        stack.push([temp, i])
+    if (temperatures.length <= 0) {
+        return 0
     }
 
-    return results    
+    let stack = [[temperatures[0], 0]]
+    let results = (new Array(temperatures.length)).fill(0)
+
+    temperatures.forEach((temperature, i) => {
+        while (stack.length > 0 && stack[stack.length-1][0] < temperature) {
+            let element = stack.pop()
+
+            results[element[1]] = (i - element[1])
+        }
+
+        stack.push([temperature, i])
+    })
+
+    return results
 };
