@@ -11,28 +11,33 @@
  * @param {TreeNode} subRoot
  * @return {boolean}
  */
-function isSameTree(root1, root2) {
-  if (!root1 ^ !root2) { // ^ is xor (exclusive or)
-    return false;
-  } else if (!root1) {
-    return true;
-  }
+function isSameSubroot(node, subRoot) {
+    if (node == null && subRoot == null) {
+        return true
+    }
 
-  if (root1.val === root2.val) {
-    return isSameTree(root1.left, root2.left) && isSameTree(root1.right, root2.right);
-  }
-  return false;
+    if ((node == null && subRoot != null) || (subRoot == null && node != null)) {
+        return false
+    }
+
+    if (node.val !== subRoot.val) {
+        return false
+    }
+
+    return isSameSubroot(node.left, subRoot.left) && isSameSubroot(node.right, subRoot.right)
 }
 
-function isSubtree(root, subtree) { // return boolean
-  if (!root) {
-     // return true if both are empty but false if the root is empty and the subtree is not
-     return !subtree;
-  }
+var isSubtree = function(root, subRoot) {
+    if (isSameSubroot(root, subRoot)) {
+        return true
+    }
 
-  const isOnRight = isSubtree(root.right, subtree);
-  const isOnLeft = isSubtree(root.left, subtree);
-  const isRightHere = isSameTree(root, subtree);
+    if (root == null) {
+        return false
+    }
 
-  return isRightHere || isOnLeft || isOnRight;
-}
+    return (
+        isSubtree(root.left, subRoot) || 
+        isSubtree(root.right, subRoot)
+    )
+};
