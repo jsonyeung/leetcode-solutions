@@ -4,25 +4,31 @@
  */
  /*
 
- for each house:
-    1. rob house, skip house
-    2. skip house
+ money = 0, i = 0
 
-if no more houses to rob, return amount of money stolen
-for all given possible paths, return the one with the most robbed house
+ rob this house and skip next house
+
+ skip and move to the next house
+
  */
 var rob = function(nums) {
-    const memo = {}
+    let memo = {}
 
-    function helper(i = 0) {
-        if (memo[i] != null) return memo[i]
-        if (i >= nums.length) return 0
+    function helper(i = 0, money = 0) {
+        if (i >= nums.length) {
+            return money
+        }
 
-        memo[i] = Math.max(
-            nums[i] + helper(i + 2),
-            helper(i + 1)
+        let key = [i, money].join('_')
+        
+        if (memo[key] != null) {
+            return memo[key]
+        }
+
+        return memo[key] = Math.max(
+            helper(i+2, money + nums[i]),
+            helper(i+1, money)
         )
-        return memo[i]
     }
 
     return helper()
