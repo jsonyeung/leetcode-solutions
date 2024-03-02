@@ -10,29 +10,24 @@
  * @return {ListNode}
  */
 var reverseList = function(head) {
-    if (head == null) return head
+    if (head == null || head.next == null) {
+        return head
+    }
 
-    let stack = []
+    let prev = null
     let pointer = head
+    let next = pointer.next
 
-    while (pointer != null) {
-        stack.push(pointer)
-        pointer = pointer.next
+    while (next != null) {
+        let temp = next.next
+
+        next.next = pointer
+        pointer.next = prev
+
+        prev = pointer
+        pointer = next
+        next = temp
     }
 
-    let newHead = stack.pop()
-    let popped = null
-    pointer = newHead
-
-    while (stack.length > 0) {
-        popped = stack.pop()
-        pointer.next = popped
-        pointer = popped
-    }
-
-    if (popped != null) {
-        popped.next = null
-    }
-
-    return newHead
+    return pointer
 };
