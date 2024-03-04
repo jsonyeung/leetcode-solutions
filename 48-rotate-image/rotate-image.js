@@ -10,6 +10,7 @@
     
 */
 var rotate = function(matrix) {
+    // transpose
     for (let r = 0; r < matrix.length; r++) {
         for (let c = 0; c < r; c++) {
             if (r === c) continue
@@ -20,5 +21,20 @@ var rotate = function(matrix) {
         }
     }
 
-    return matrix.map((row) => row.reverse())
+    // reverse row
+    for (let r = 0; r < matrix.length; r++) {
+        let left = 0
+        let right = (matrix.length - 1)
+
+        while (left < right) {
+            let temp = matrix[r][left]
+            matrix[r][left] = matrix[r][right]
+            matrix[r][right] = temp
+
+            console.log(matrix[r])
+            left++; right--
+        }
+    }
+
+    return matrix
 };
