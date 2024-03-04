@@ -6,29 +6,19 @@
 /*
 
 1. Transpose the array (swap diagonals)
-2. reverse the array
+2. reverse the rows
     
 */
 var rotate = function(matrix) {
-    // transpose array
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < i; j++) {
-            if (i !== j) {
-                const temp = matrix[i][j]
-                matrix[i][j] = matrix[j][i]
-                matrix[j][i] = temp
-            }
+    for (let r = 0; r < matrix.length; r++) {
+        for (let c = 0; c < r; c++) {
+            if (r === c) continue
+
+            let temp = matrix[r][c]
+            matrix[r][c] = matrix[c][r]
+            matrix[c][r] = temp
         }
     }
 
-    // reverse rows
-    for (let i = 0; i < matrix.length; i++) {
-        for (let j = 0; j < matrix[i].length / 2; j++) {
-            const temp = matrix[i][j]
-            matrix[i][j] = matrix[i][matrix[i].length - j - 1]
-            matrix[i][matrix[i].length - j - 1] = temp
-        }
-    }
-
-    return matrix
+    return matrix.map((row) => row.reverse())
 };
