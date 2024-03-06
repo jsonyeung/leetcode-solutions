@@ -4,29 +4,32 @@
  */
  /*
 
- set left to left of array and right ot right of array
+move left until it is greater than right
 
-maxArea = -Infinity
+move right until it is greater than left
 
- while left < right
-    area = area of left and right sides
-    maxArea = max(maxArea, area)
-    
-    if left is smallest side, move left
-    if right is mallest side, move right
+keep max area along the way
 
+repeat until left >= right
 
  */
 var maxArea = function(height) {
-    let left = 0, right = (height.length - 1)
+    let left = 0
+    let right = (height.length - 1)
+
     let maxArea = -Infinity
+    console.log(left, right)
 
     while (left < right) {
-        let area = (right - left) * Math.min(height[right], height[left])
-        maxArea = Math.max(maxArea, area)
+        let area = (right - left) * Math.min(height[left], height[right])
 
-        if (height[left] <= height[right]) left++
-        else right--
+        maxArea = Math.max(area, maxArea)
+
+        if (height[left] <= height[right]) {
+            left++
+        } else {
+            right--
+        }
     }
 
     return maxArea
