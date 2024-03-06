@@ -42,7 +42,10 @@ var reorderList = function(head) {
     }
 
     // merge two halfs
-    
+    /*
+        1 -> 5 -> 2 -> 4 -> 3 -> null,  
+             |         |
+    */
     let first = head
     second = prev
 
