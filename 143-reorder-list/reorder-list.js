@@ -10,38 +10,50 @@
  * @return {void} Do not return anything, modify head in-place instead.
  */
 var reorderList = function(head) {
-    if (head == null || head.next == null) {
-        return head
+    // find midpoint for slow
+    /*
+        1 2 3 4
+          ^   ^ 
+        
+        1 2 3 4 5
+            ^      ^
+    */
+    let slow = head
+    let fast = head.next
+
+    while (fast && fast.next) {
+        slow = slow.next
+        fast = fast.next.next
     }
 
-    let stack = []
-    let pointer = head.next
+    // reverse second half
+    /*
+        1 -> 2 -> 3 -> null,  4 <- 5 
+    */
+    let second = slow.next
+    let prev = null
+    slow.next = null
 
-    while (pointer != null) {
-        stack.push(pointer)
-        pointer = pointer.next
+    while (second) {
+        let temp = second.next
+        second.next = prev
+        prev = second
+        second = temp
     }
 
-    let left = 0
-    let right = (stack.length - 1)
-    let ordered = []
+    // merge two halfs
+    
+    let first = head
+    second = prev
 
-    while (left <= right) {
-        if (left === right) {
-            ordered.push(stack[right])
-        } else {
-            ordered.push(stack[right])
-            ordered.push(stack[left])
-        }
+    while (second) {
+        let temp1 = first.next
+        let temp2 = second.next
 
-        left++; right--
+        first.next = second
+        second.next = temp1
+
+        first = temp1
+        second = temp2
     }
-
-    head.next = ordered[0]
-
-    for (let i = 0; i < ordered.length; i++) {
-        ordered[i].next = (ordered[i+1]) ? ordered[i+1] : null
-    }
-
-    return head
 };
