@@ -26,7 +26,7 @@ var threeSum = function(nums) {
                 
                 // avoid duplicates
                 while (nums[cur-1] === nums[cur]) cur++
-                
+                while (nums[right+1] === nums[right]) right--
 
             } else if (sum < 0) {
                 cur++
