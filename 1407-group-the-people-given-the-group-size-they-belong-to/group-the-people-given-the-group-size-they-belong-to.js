@@ -3,21 +3,21 @@
  * @return {number[][]}
  */
 var groupThePeople = function(groupSizes) {
-    let map = {}
+    let groups = {}
     let results = []
 
-    groupSizes.forEach((groupSize, i) => {
-        if (map[groupSize] == null) {
-            map[groupSize] = []
+    for (let i = 0; i < groupSizes.length; i++) {
+        if (groups[groupSizes[i]] == null) {
+            groups[groupSizes[i]] = []
         }
 
-        map[groupSize].push(i)
+        groups[groupSizes[i]].push(i)
 
-        if (map[groupSize].length === groupSize) {
-            results.push(map[groupSize])
-            map[groupSize] = []
+        if (groups[groupSizes[i]].length >= groupSizes[i]) {
+            results.push(groups[groupSizes[i]])
+            groups[groupSizes[i]] = []
         }
-    })
+    }
 
     return results
 };
