@@ -26,7 +26,7 @@ var reorderList = function(head) {
         fast = fast.next.next
     }
 
-    // reverse second half
+    // reverse second half, set end of mid point (slow.next) to null
     /*
         1 -> 2 -> 3 -> null,  4 <- 5 
     */
