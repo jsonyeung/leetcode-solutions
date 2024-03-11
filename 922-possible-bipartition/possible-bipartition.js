@@ -4,10 +4,10 @@
  * @return {boolean}
  */
  /*
-   w   b
+   W   B
    1 - 2 
     \    \
-   b 3    4 w
+   B 3    4 W
 
    https://www.youtube.com/watch?v=0ACfAqs8mm0
 
@@ -53,7 +53,7 @@ var possibleBipartition = function(n, dislikes) {
         return true
     }
 
-    // there may be subgraphs, so check if true
+    // there may be subgraphs, so check if all subgraphs are bipartite
     for (let node of Object.keys(adjList)) {
         // skip if node is already processed
         if (colorings[node] != null) continue
