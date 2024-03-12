@@ -3,23 +3,23 @@
  * @param {number} h
  * @return {number}
  */
-var minEatingSpeed = function(piles, h) {
-    let left = 1
-    let right = Math.max(...piles)
 
-    function getHoursTaken(bananas) {
+var minEatingSpeed = function(piles, h) {
+    function getHoursTaken(numBananas) {
         return piles.reduce((acc, val) => {
-            return acc + Math.ceil(val / bananas)
+            return acc + Math.ceil(val / numBananas)
         }, 0)
     }
 
+    let left = 1
+    let right = Math.max(...piles)
     let minBananas = Infinity
 
     while (left <= right) {
         let mid = Math.floor((right - left) / 2) + left
         let hoursTaken = getHoursTaken(mid)
 
-        // console.log(mid, hoursTaken)
+        console.log(left, mid, right)
 
         if (hoursTaken <= h) {
             minBananas = mid
@@ -32,10 +32,3 @@ var minEatingSpeed = function(piles, h) {
 
     return minBananas
 };
-
-/*
-
-[1 2 3 4 5 6 7 8 9 10 11]
-
-
-*/
