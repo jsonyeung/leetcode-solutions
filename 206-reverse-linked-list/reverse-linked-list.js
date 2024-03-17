@@ -14,20 +14,18 @@ var reverseList = function(head) {
         return head
     }
 
-    let prev = null
-    let pointer = head
-    let next = pointer.next
+    let sentinel = new ListNode(null, head)
+    let pointer = head.next
+    
+    head.next = null
 
-    while (next != null) {
-        let temp = next.next
-
-        next.next = pointer
-        pointer.next = prev
-
-        prev = pointer
-        pointer = next
-        next = temp
+    while (pointer != null) {
+        let temp = pointer.next
+        
+        pointer.next = sentinel.next
+        sentinel.next = pointer
+        pointer = temp
     }
 
-    return pointer
+    return sentinel.next
 };
