@@ -6,19 +6,19 @@
 var mergeTriplets = function(triplets, target) {
     
     /* 
-        has number = true
+        has number = set()
         for each number in target
             for eahc in triplet
+                if triplet contains value > target value,
+                    ignore it and continue
+
                 if number === in triplet
-                    set true
+                    add index to set
                 
                 if number <= triplet
                     push to remaining triplets
         
-            if has number = false
-                return false
-        
-        return true
+        return true if set has 3 indices
     */
 
     let hasNumber = new Set()
