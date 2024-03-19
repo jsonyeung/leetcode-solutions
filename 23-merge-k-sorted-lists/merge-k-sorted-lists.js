@@ -10,58 +10,27 @@
  * @return {ListNode}
  */
 var mergeKLists = function(lists) {
-    if (lists == null || lists.length <= 0) {
-        return null
+    const queue = new MinPriorityQueue({ priority: (x) => x.val })
+
+    for (let head of lists) {
+        if (head != null) {
+            queue.enqueue(head)
+        }
     }
 
-    function mergeLists(listA, listB) {
-        let sentinel = new ListNode(null, null)
-        let pointer = sentinel
+    let results = new ListNode()
+    let pointer = results
 
-        let pointerA = listA
-        let pointerB = listB
+    while (!queue.isEmpty()) {
+        const node = queue.dequeue().element
 
-        while (pointerA && pointerB) {
-            if (pointerA.val <= pointerB.val) {
-                pointer.next = pointerA
-                pointer = pointer.next
-                pointerA = pointerA.next
+        pointer.next = new ListNode(node.val)
+        pointer = pointer.next
 
-            } else {
-                pointer.next = pointerB
-                pointer = pointer.next
-                pointerB = pointerB.next
-            }
+        if (node.next) {
+            queue.enqueue(node.next)
         }
-
-        while (pointerA) {
-            pointer.next = pointerA
-            pointer = pointer.next
-            pointerA = pointerA.next
-        }
-
-        while (pointerB) {
-            pointer.next = pointerB
-            pointer = pointer.next
-            pointerB = pointerB.next
-        }
-
-        return sentinel.next
     }
 
-    while (lists.length > 1) {
-        let mergedList = []
-
-        for (let i = 0; i < lists.length; i += 2) {
-            let listA = lists[i]
-            let listB = lists[i + 1] || null
-            mergedList.push(mergeLists(listA, listB))
-        }
-
-        // console.log(mergedList)
-
-        lists = mergedList
-    }
-
-    return lists[0]
+    return results.next
 };
