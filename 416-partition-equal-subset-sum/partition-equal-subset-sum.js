@@ -8,13 +8,11 @@ var canPartition = function(nums) {
     if (total % 2 !== 0) {
         return false
     }
-
+    
     let target = total / 2
     let memo = {}
 
-    function helper(i, target) {
-        let key = `${i}_${target}`
-
+    function helper(i = 0, target) {
         if (i >= nums.length) {
             return false
         }
@@ -27,16 +25,15 @@ var canPartition = function(nums) {
             return true
         }
 
+        let key = `${i}_${target}`
+
         if (memo[key] != null) {
             return memo[key]
         }
 
-        memo[key] = (
-            helper(i+1, target - nums[i]) ||
-            helper(i+1, target)
+        return memo[key] = (
+            helper(i+1, target - nums[i]) || helper(i+1, target)
         )
-
-        return memo[key]
     }
 
     return helper(0, target)
