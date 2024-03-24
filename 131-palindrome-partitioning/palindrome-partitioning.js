@@ -19,7 +19,7 @@ var partition = function(s) {
         for (let j = i + 1; j <= s.length; j++) {
             let current = s.slice(i, j)
 
-            console.log(current, isPalindrome(current))
+            // console.log(current, isPalindrome(current))
 
             if (isPalindrome(current)) {
                 partition.push(current)
