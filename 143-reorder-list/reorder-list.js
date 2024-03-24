@@ -10,14 +10,10 @@
  * @return {void} Do not return anything, modify head in-place instead.
  */
 var reorderList = function(head) {
-    // find midpoint for slow
-    /*
-        1 2 3 4
-          ^   ^ 
-        
-        1 2 3 4 5
-            ^      ^
-    */
+    if (head == null || head.next == null) {
+        return head
+    }
+
     let slow = head
     let fast = head.next
 
@@ -26,12 +22,9 @@ var reorderList = function(head) {
         fast = fast.next.next
     }
 
-    // reverse second half, set end of mid point (slow.next) to null
-    /*
-        1 -> 2 -> 3 -> null,  4 <- 5 
-    */
-    let second = slow.next
     let prev = null
+    let second = slow.next
+
     slow.next = null
 
     while (second) {
@@ -41,22 +34,19 @@ var reorderList = function(head) {
         second = temp
     }
 
-    // merge two halfs
-    /*
-        1 -> 5 -> 2 -> 4 -> 3 -> null,  
-             |         |
-    */
-    let first = head
-    second = prev
+    console.log(head, prev)
 
-    while (second) {
-        let temp1 = first.next
-        let temp2 = second.next
+    let listA = head
+    let listB = prev
 
-        first.next = second
-        second.next = temp1
+    while (listB) {
+        let nextA = listA.next
+        let nextB = listB.next
 
-        first = temp1
-        second = temp2
+        listA.next = listB
+        listB.next = nextA
+
+        listA = nextA
+        listB = nextB
     }
 };
