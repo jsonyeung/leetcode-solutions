@@ -3,18 +3,11 @@
  * @param {number} k
  * @return {number[]}
  */
- /*
-
-
-
-
- */
 var maxSlidingWindow = function(nums, k) {
     let queue = []
 
     function pushDecreasing(value) {
-        while (queue.length > 0 && 
-               queue[queue.length - 1] < value) {
+        while (queue.length > 0 && queue[queue.length - 1] < value) {
             queue.pop()
         }
         queue.push(value)
@@ -24,17 +17,21 @@ var maxSlidingWindow = function(nums, k) {
         pushDecreasing(nums[i])
     }
 
-    let results = [queue[0]]
+    let start = 0
+    let end = k - 1
 
-    // console.log(queue)
-    for (let i = k; i < nums.length; i++) {
-        if (nums[i - k] === queue[0]) {
-            queue.shift() // O(1) using doubly LL
-        }
+    let results = []
 
-        pushDecreasing(nums[i])
+    while (end < nums.length) {
         // console.log(queue)
         results.push(queue[0])
+
+        if (nums[start] === queue[0]) {
+            queue.shift()
+        }
+
+        pushDecreasing(nums[end + 1])
+        start++; end++
     }
 
     return results
