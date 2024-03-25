@@ -3,27 +3,25 @@
  * @return {string[][]}
  */
 var partition = function(s) {
-    let results = []
-    let partition = []
+    const results = []
+    const partition = []
 
     function isPalindrome(string) {
-        return (string.split('').reverse().join('') === string)
+        return string.split("").reverse().join('') === string
     }
 
     function helper(i = 0) {
         if (i >= s.length) {
-            results.push([...partition])
+            results.push(partition.slice())
             return
         }
 
-        for (let j = i + 1; j <= s.length; j++) {
-            let current = s.slice(i, j)
+        for (let j = i; j < s.length; j++) {
+            let substr = s.slice(i, j + 1)
 
-            // console.log(current, isPalindrome(current))
-
-            if (isPalindrome(current)) {
-                partition.push(current)
-                helper(j)
+            if (isPalindrome(substr)) {
+                partition.push(substr)
+                helper(j + 1)
                 partition.pop()
             }
         }
