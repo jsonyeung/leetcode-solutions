@@ -2,31 +2,36 @@
  * @param {string} s
  * @return {number}
  */
+
+function isPalindrome(string) {
+    return string.split('').reverse().join('') === string
+}
+
 var countSubstrings = function(s) {
-    let total = 0
-    
+    let count = 0
+
     for (let i = 0; i < s.length; i++) {
-        let l = i, r = i
+        let left = i
+        let right = i
 
-        while (l >= 0 && r < s.length) {
-            // console.log(s.slice(l, r+1))
-            if (s[l] !== s[r]) break
+        while (left >= 0 && right < s.length) {
+            if (s[left] !== s[right]) break
 
-            l--; r++
-            total++
+            count++
+            left--; right++
         }
 
-        // for even pairs (e.g. bc -> a+bc+d)
-        l = i, r = i + 1
+        // shift right once to check even palindromes
+        left = i
+        right = i + 1
 
-        while (l >= 0 && r < s.length) {
-            // console.log(s.slice(l, r+1))
-            if (s[l] !== s[r]) break
+        while (left >= 0 && right < s.length) {
+            if (s[left] !== s[right]) break
 
-            l--; r++
-            total++
+            count++
+            left--; right++
         }
     }
 
-    return total
+    return count
 };
