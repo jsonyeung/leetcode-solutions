@@ -4,8 +4,8 @@
  * @return {number}
  */
 var canCompleteCircuit = function(gas, cost) {
-    let runningSum = 0
     let startingStation = 0
+    let runningSum = 0
 
     let totalGas = 0
     let totalCost = 0
