@@ -13,8 +13,6 @@ var evalRPN = function(tokens) {
     }
 
     for (let token of tokens) {
-        console.log(stack)
-        
         if (operations[token]) {
             let b = stack.pop()
             let a = stack.pop()
