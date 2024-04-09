@@ -42,6 +42,8 @@ let getAdjacencyList = function(edges) {
 
 var findCheapestPrice = function(n, flights, src, dst, k) {
     let adjList = getAdjacencyList(flights)
+
+    // if src and dest not within any flights at all
     if (!adjList[src] || !adjList[dst]) return -1
 
     let minCost = Infinity
