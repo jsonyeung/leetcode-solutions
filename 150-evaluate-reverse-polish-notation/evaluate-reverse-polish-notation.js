@@ -2,29 +2,28 @@
  * @param {string[]} tokens
  * @return {number}
  */
-
-const OPS = {
-    '+': (a, b) => a + b,
-    '-': (a, b) => a - b,
-    '*': (a, b) => a * b,
-    '/': (a, b) => {
-        return (a / b >= 0) ? Math.floor(a / b) : Math.ceil(a / b)
-    },
-}
-
 var evalRPN = function(tokens) {
-    let numbers = []
-    
+    let stack = []
+
+    let operations = {
+        '+': (a, b) => a + b,
+        '-': (a, b) => a - b,
+        '*': (a, b) => a * b,
+        '/': (a, b) => ((a / b) < 0) ? Math.ceil(a / b) : Math.floor(a / b)
+    }
+
     for (let token of tokens) {
-        if (OPS[token] != null) {
-            let b = numbers.pop()
-            let a = numbers.pop()
-            numbers.push(OPS[token](a, b))
+        console.log(stack)
+        
+        if (operations[token]) {
+            let b = stack.pop()
+            let a = stack.pop()
+            stack.push(operations[token](a, b))
 
         } else {
-            numbers.push(parseInt(token))
+            stack.push(Number(token))
         }
     }
 
-    return numbers[0]
+    return stack[0]
 };
