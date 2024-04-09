@@ -3,49 +3,30 @@
  * @return {number[]}
  */
 var partitionLabels = function(s) {
-    /*
-        eccbbdec
-        
-        right = {
-            e: 1
-            c: 1
-            b: 0
-            d: 1
-        }
-
-        left = {
-            e: 1
-            c: 2
-            b: 2
-        }
-    */
-
-    let right = {}
+    let count = {}
 
     for (let char of s) {
-        right[char] = (right[char] || 0) + 1
+        count[char] = (count[char] || 0) + 1
     }
 
-    let left = new Set()
-    let remaining = 0
+    let visited = new Set()
     let results = []
-    let i = 1
 
-    for (let char of s) {
-        if (!left.has(char)) {
-            left.add(char)
-            remaining += right[char]
+    let remaining = 0
+    let start = 0
+
+    for (let i = 0; i < s.length; i++) {
+        if (!visited.has(s[i])) {
+            remaining += count[s[i]]
+            visited.add(s[i])
         }
-
+        
         remaining--
-        right[char]--
 
-        if (right[char] === 0 && remaining <= 0) {
-            results.push(i)
-            i = 0
+        if (remaining === 0) {
+            results.push(i - start + 1)
+            start = i + 1
         }
-
-        i++
     }
 
     return results
