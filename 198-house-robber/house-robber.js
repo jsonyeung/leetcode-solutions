@@ -14,12 +14,10 @@ var rob = function(nums) {
             return memo[i]
         }
 
-        memo[i] = Math.max(
-            nums[i] + helper(i+2),
-            helper(i+1)
+        return memo[i] = Math.max(
+            nums[i] + helper(i + 2),
+            helper(i + 1)
         )
-
-        return memo[i]
     }
 
     return helper()
