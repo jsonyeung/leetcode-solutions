@@ -7,8 +7,7 @@ var findRedundantConnection = function(edges) {
     let parent = Array.from({ length: numNodes }, (_, i) => i)
     let rank = Array.from({ length: numNodes }, () => 1)
 
-    console.log(parent)
-
+    // move up the parent chain until the representitve is found
     function find(nodeVal) {
         let p = parent[nodeVal]
 
@@ -23,10 +22,12 @@ var findRedundantConnection = function(edges) {
         let fromParent = find(from)
         let toParent = find(to)
 
+        // if from and to has same representitive, cannot be merged
         if (fromParent === toParent) {
             return false
         }
 
+        // merge based on whether from or to's parent has the largest # of children (rank)
         if (rank[toParent] < rank[fromParent]) {
             parent[toParent] = fromParent
             rank[fromParent] += rank[toParent]
