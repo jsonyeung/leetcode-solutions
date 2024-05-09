@@ -15,8 +15,8 @@ var rob = function(nums) {
         }
 
         return memo[i] = Math.max(
-            nums[i] + helper(i + 2),
-            helper(i + 1)
+            nums[i] + helper(i+2),
+            helper(i+1)
         )
     }
 
