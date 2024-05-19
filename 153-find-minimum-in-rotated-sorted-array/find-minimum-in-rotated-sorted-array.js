@@ -3,19 +3,18 @@
  * @return {number}
  */
 var findMin = function(nums) {
-    let left = 0, right = (nums.length - 1)
+    let start = 0
+    let end = (nums.length - 1)
 
-    while (left < right) {
-        let mid = Math.floor((right - left) / 2) + left
+    while (start !== end) {
+        let mid = Math.floor((end - start) / 2) + start
 
-        if (nums[mid] > nums[right]) {
-            left = mid + 1
+        if (nums[mid] > nums[end]) {
+            start = mid + 1
         } else {
-            right = mid
+            end = mid
         }
     }
 
-    console.log(left, right)
-
-    return nums[left]
-}; 
+    return nums[start]
+};
