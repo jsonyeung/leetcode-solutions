@@ -18,7 +18,8 @@ var dailyTemperatures = function(temperatures) {
     }
 
     // push remaining as 0
-    for (let [temp, prevIndex] of stack) {
+    while (stack.length > 0) {
+        let [_, prevIndex] = stack.pop()
         results[prevIndex] = 0
     }
 
