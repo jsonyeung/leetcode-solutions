@@ -4,17 +4,22 @@
  */
 var dailyTemperatures = function(temperatures) {
     let stack = []
-    let results = Array.from(temperatures, () => 0)
-
+    let results = []
+    
     for (let i = 0; i < temperatures.length; i++) {
         let temp = temperatures[i]
 
-        while (stack.length > 0 && temp > stack[stack.length - 1][0]) {
-            let [_, index] = stack.pop()
-            results[index] = i - index
-        } 
+        while (stack.length && stack[stack.length - 1][0] < temp) {
+            let prevIndex = stack.pop()[1]
+            results[prevIndex] = (i - prevIndex)
+        }
 
         stack.push([temp, i])
+    }
+
+    // push remaining as 0
+    for (let [temp, prevIndex] of stack) {
+        results[prevIndex] = 0
     }
 
     return results
