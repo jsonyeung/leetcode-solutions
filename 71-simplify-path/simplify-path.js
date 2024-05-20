@@ -4,36 +4,27 @@
  */
  /*
 
-get rid of double slashes
+ split path by "/"
 
-split the path by '/'
-
-stack = []
-loop through each path
-    if (path === '.')
+ for each part in the path
+    if part is '.'
         do nothing
-    else if (path === '..')
-        stack.pop()
-    else
-        stack.push(path)
 
-return '/' + stack.join('/')
+    if part is '..'
+        pop from stack
+    
+    push into stack
 
  */
 var simplifyPath = function(path) {
-    let directories = path.split('/')
-        .filter((value) => value !== "")
-    
+    let parts = path.split('/')
     let stack = []
-    for (let dir of directories) {
-        if (dir === ".") {
-            continue
-        } else if (dir === "..") {
-            stack.pop()
-        } else {
-            stack.push(dir)
-        }
+
+    for (let part of parts) {
+        if (part === '' || part === '.') continue
+        else if (part === '..') stack.pop()
+        else stack.push(part)
     }
-    
-    return "/" + stack.join("/")
+
+    return '/' + stack.join('/')
 };
