@@ -12,30 +12,14 @@
  * @param {TreeNode} q
  * @return {TreeNode}
  */
- /*
-
-For a BST node
-
-if p and q < node
-    traverse left
-if p and q > node
-    traverse right
-
-else they must be split between current node (either left and right or node itself is p or q)
-    return node
-
- */
 var lowestCommonAncestor = function(root, p, q) {
-    function traverse(node) {
-        if (p.val < node.val && q.val < node.val) {
-            return traverse(node.left)
-        } else if (p.val > node.val && q.val > node.val) {
-            return traverse(node.right)
+    if (root.val > p.val && root.val > q.val) {
+        return lowestCommonAncestor(root.left, p, q)
 
-        } else {
-            return node
-        }
+    } else if (root.val < p.val && root.val < q.val) {
+        return lowestCommonAncestor(root.right, p, q)
+
+    } else {
+        return root
     }
-
-    return traverse(root)
 };
