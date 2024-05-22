@@ -12,22 +12,22 @@
  * @return {number}
  */
 var kthSmallest = function(root, k) {
-    let i = 0
-    let kthSmallestNode = null
+    let count = 0
+    let smallestNode = null
 
-    function helper(node) {
-        if (node == null) return
+    function traverse(node) {
+        if (node == null || smallestNode) return
 
-        helper(node.left)
+        traverse(node.left)
 
-        if (++i === k) {
-            kthSmallestNode = node.val
+        if (++count === k) {
+            smallestNode = node
             return
         }
 
-        helper(node.right)
+        traverse(node.right)
     }
 
-    helper(root)
-    return kthSmallestNode
+    traverse(root)
+    return smallestNode.val
 };
