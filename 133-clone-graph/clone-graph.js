@@ -12,24 +12,24 @@
  */
 var cloneGraph = function(node) {
     if (node == null) return node
-    let map = new Map()
+    let hashmap = new Map()
 
-    // traverse, creating new clone nodes and connecting them
     function traverse(node) {
-        if (map.has(node)) return map.get(node)
-
-        let cloneNode = new Node(node.val)
-        map.set(node, cloneNode)
-
-        for (let neighbor of node.neighbors) {
-            // connect cloned nodes to each other
-            let cloneNeighbor = traverse(neighbor)
-            cloneNode.neighbors.push(cloneNeighbor)
+        if (hashmap.has(node)) {
+            return hashmap.get(node)
         }
 
-        return cloneNode
+        let clonedNode = new Node(node.val)
+        hashmap.set(node, clonedNode)
+
+        for (let neighbor of node.neighbors) {
+            let cloneNeighbor = traverse(neighbor)
+            clonedNode.neighbors.push(cloneNeighbor)
+        }
+
+        return clonedNode
     }
 
     traverse(node)
-    return map.get(node)
+    return hashmap.get(node)
 };
