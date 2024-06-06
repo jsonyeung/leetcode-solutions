@@ -6,6 +6,7 @@
 var kthSmallest = function(matrix, k) {
     let heap = []
 
+    // populate heap with the head of each list
     for (let i = 0; i < matrix.length; i++) {
         let value = matrix[i][0]
         heap.push([value, i, 0]) // [value, listIndex, indexInList]
