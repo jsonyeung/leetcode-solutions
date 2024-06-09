@@ -2,36 +2,37 @@
  * @param {string} s
  * @return {number}
  */
-
-function isPalindrome(string) {
-    return string.split('').reverse().join('') === string
-}
-
 var countSubstrings = function(s) {
-    let count = 0
+    function getPalindromicStringFromMidpoint(idx) {
+        let count = 0
+        let i = 0
 
-    for (let i = 0; i < s.length; i++) {
-        let left = i
-        let right = i
-
-        while (left >= 0 && right < s.length) {
-            if (s[left] !== s[right]) break
-
+        // odd numbered palindromes
+        while (s[idx - i] != null && s[idx + i] != null) {
+            if (s[idx - i] !== s[idx + i]) break
             count++
-            left--; right++
+            i++
         }
 
-        // shift right once to check even palindromes
-        left = i
-        right = i + 1
+        // even numbered palindromes
+        if (s[idx + 1] != null) {
+            i = 0
 
-        while (left >= 0 && right < s.length) {
-            if (s[left] !== s[right]) break
-
-            count++
-            left--; right++
+            while (s[idx - i] != null && s[idx + i + 1] != null) {
+                if (s[idx - i] !== s[idx + i + 1]) break
+                count++
+                i++
+            }
         }
+
+        return count
     }
 
-    return count
+    let total = 0
+
+    for (let i = 0; i < s.length; i++) {
+        total += getPalindromicStringFromMidpoint(i)
+    }
+
+    return total
 };
