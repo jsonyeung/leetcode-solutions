@@ -13,19 +13,23 @@
 var maxPathSum = function(root) {
     let maxSum = -Infinity
 
-    function traverse(node) {
+    function helper(node, sum = 0) {
         if (node == null) return 0
 
-        let leftVal = Math.max(traverse(node.left), 0)
-        let rightVal = Math.max(traverse(node.right), 0)
+        let leftSum = Math.max(helper(node.left, sum), 0)
+        let rightSum = Math.max(helper(node.right, sum), 0)
 
-        let curSum = leftVal + node.val + rightVal
+        maxSum = Math.max(
+            leftSum + node.val + rightSum,
+            maxSum
+        )
 
-        maxSum = Math.max(curSum, maxSum)
-
-        return node.val + Math.max(leftVal, rightVal)
+        return node.val + Math.max(
+            leftSum,
+            rightSum
+        )
     }
 
-    traverse(root)
+    helper(root)
     return maxSum
 };
