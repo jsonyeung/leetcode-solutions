@@ -19,9 +19,9 @@ var removeNthFromEnd = function(head, n) {
     S -> 1 -> 2 -> 3 -> 4 -> 5, n = 2    |   S -> 1 -> 2 -> 3 -> 4 -> 5, n = 2
     s    n    e                          |                  s    n    e
 
-    S -> 1, n = 1                        |      S -> 1, n = 1
-    s    n                               |      s    n   
-                                         |           e
+    S -> 1, n = 1                        |      S -> 1 -> NULL, n = 1
+    s    n                               |           s    n   
+         e                               |                e
          
     S -> 1 -> 2, n = 1                   |   S -> 1 -> 2, n = 1
     s    n                               |        s    n
