@@ -10,49 +10,36 @@
  * @param {number} n
  * @return {ListNode}
  */
-/*
-
-edge case: if no nodes return null
-
-edge case: if 1 node, n = 1
-return null
-
-edge case: if the node that needs to be removed is the head
-
-1 -> 2, n = 2
-
-s -> 1 -> 2
-^     ^
-          ^
-
-2
-
-*/
 var removeNthFromEnd = function(head, n) {
-    if (head == null || head.next == null) {
-        return null
-    }
-
+    // if n == 1 then make sentinel.next to next value return
     let sentinel = new ListNode(null, head)
 
-    let prev = sentinel
-    let start = sentinel.next
+    /*
+
+    S -> 1 -> 2 -> 3 -> 4 -> 5, n = 2
+    s    n    e
+
+    S -> 1
+    s    n    
+         e
+         
+    */
+
+    let start = sentinel
+    let next = sentinel.next
     let end = sentinel
 
     for (let i = 0; i < n; i++) {
         end = end.next
     }
 
-    // console.log(head, prev.val, start.val, end.val)
-
-    while (end.next) {
-        prev = prev.next
+    while (end.next != null) {
         start = start.next
+        next = next.next
         end = end.next
     }
 
-    // console.log(head, prev.val, start.val, end.val)
-
-    prev.next = start.next
+    start.next = next.next
+    next.next = null
     return sentinel.next
 };
