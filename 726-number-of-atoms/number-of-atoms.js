@@ -53,7 +53,9 @@ var countOfAtoms = function(formula) {
             if (a !== c) return a.localeCompare(c);
             else return b - d
         })
-        .map(([a, b]) => (b === 1) ? a : [a, b])
+        .map(([atom, number]) => {
+            return (number === 1) ? atom : [atom, number]
+        })
         
     return entries.flat().join('')
 };
